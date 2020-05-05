@@ -23,7 +23,7 @@ account_sid = os.environ.get('TWILIO_ACCOUNT_SID')
 
 
 # This is the number assigned to my account on twilio that all of the messages will be sent from
-from_number = "205-754-9752"
+from_number = "774-228-7644"
 
 # Create our client object using the Client function within the twilio library
 client = Client(account_sid, auth_token)
