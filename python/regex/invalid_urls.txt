@@ -1,0 +1,34 @@
+http://test.url/test(url)word test
+http://.www.invalid.url
+ftps://invalid.url/
+http://invalid-.url/
+http://www.invalid.url./
+http://www.invalid.url./
+http://invalid.url?=spaces are invalid
+h://test
+http:///a
+//
+///
+//a
+///a
+test://1234
+http.//
+http://-invalid-.invalid/
+example .com
+http://
+http://.
+http://..
+http://../
+http://?
+http://??
+http://??/
+http://#
+http://##
+http://#/
+http:// invalidurl.com
+:// invalidurl
+http:a.b-c.de/
+http://-a.b.co
+http://0.0.0.0
+http://1.1.1.1.1
+http://3621324344
