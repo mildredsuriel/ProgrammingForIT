@@ -68,7 +68,7 @@ sudo mount -o remount /
 if [ $format == "xfs" ]
 then
 	# Install grub2 on the partition
-	sudo grub2install $mount --skip-fs-probe
+	sudo grub2-install $mount --skip-fs-probe
 	# Configure grub
 	sudo grub2-mkconfig -o /boot/efi/EFI/${os,,}/grub.cfg
 else
