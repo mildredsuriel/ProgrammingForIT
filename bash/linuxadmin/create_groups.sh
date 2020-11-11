@@ -71,10 +71,11 @@ then
 	sudo grub2install $mount --skip-fs-probe
 	# Configure grub
 	sudo grub2-mkconfig -o /boot/efi/EFI/${os,,}/grub.cfg
+else
+	# Run quotacheck to create aquota.group and aquota.user files
+	sudo quotacheck -ugm /
 fi
 
-# Run quotacheck to create aquota.group and aquota.user files
-sudo quotacheck -ugm /
 # Turn quota on
 sudo quotaon -v /
 # Set the quota limit to 10G for temp group
