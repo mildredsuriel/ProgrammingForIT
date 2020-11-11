@@ -1,5 +1,5 @@
 # Create top level policies
-sudo mkdir /home/shared/policies
+sudo mkdir -p /home/shared/policies
 # Make file read only
 chmod a=rx /home/shared/policies
 
