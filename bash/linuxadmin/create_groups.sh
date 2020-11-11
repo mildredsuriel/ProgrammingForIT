@@ -35,8 +35,13 @@ sudo chmod a=rx /home/common/groups/staff/policies
 sudo chmod a=rx /home/common/groups/developers/policies
 sudo chmod a=rx /home/common/groups/admin/policies
 
+# Get the mount name 
+mount=$(hostnamectl | awk -F ' ' '/Operating System:/ {print $1}')
+# Get the format type
+format=$(hostnamectl | awk -F ' ' '/Operating System:/ {print $2}')
 # Get the OS name to determine what program to install
 os=$(hostnamectl | awk -F ' ' '/Operating System:/ {print $3}')
+
 if [ $os == "Ubuntu" ]
 then
 	# Get quota support
@@ -54,12 +59,26 @@ fi
 # Find the line within /etc/fstab that contains the "/" mount, and print the line number
 line_num=$(awk -F ' ' '$2 == "\/" {print NR}' /etc/fstab)
 # Update "/" fstab mount to support user and group quotas
-sudo sed -i "$line_num s/defaults/usrquota,grpquota/" /etc/fstab
+sudo sed -i "$line_num s/defaults/defaults,usrquota,grpquota/" /etc/fstab
 # Remount disk with new quota rules
 sudo mount -o remount /
-# Run quotacheck to create aquota.group and aquota.user files
-sudo quotacheck -ugm /
-# Turn quota on
-sudo quotaon -v /
-# Set the quota limit to 10G for temp group
-sudo setquota -g temp 9G 10G 0 0 /
+
+# XFS partitions take special effort to support quotas
+if [ $format == "xfs" ]
+then
+	# Install grub2 on the partition
+	sudo grub2install $mount --skip-fs-probe
+	# Configure grub
+	sudo grub2-mkconfig -o /boot/efi/EFI/${os,,}/grub.cfg
+	# Set the quota limit of temp group
+	sudo xfs_quota -x -c 'limit -g bsoft=6144m bhard=8192m isoft=1000 ihard=1200 temp' /
+	# Check the quota limits
+	sudo quota -g temp
+else
+	# Run quotacheck to create aquota.group and aquota.user files
+	sudo quotacheck -ugm /
+	# Turn quota on
+	sudo quotaon -v /
+	# Set the quota limit to 10G for temp group
+	sudo setquota -g temp 9G 10G 0 0 /
+fi
