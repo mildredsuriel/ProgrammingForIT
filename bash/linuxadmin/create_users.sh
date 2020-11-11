@@ -4,6 +4,18 @@ groups=("temp" "staff" "developers" "admin")
 # Keep track of which group we're adding a user to
 i=0
 
+# Get the OS name to determine what program to install
+os=$(hostnamectl | awk -F ' ' '/Operating System:/ {print $3}')
+
+# Default name of sudo group is usually sudo
+sudo_group="sudo"
+
+if [ $os == "CentOS" ]
+then
+	# The default sudo group in CentOS is called wheel
+	sudo_group="wheel"
+fi
+
 # Take in the first argument as the file to open and loop through each line of the file
 while IFS= read -r line; do
         # Assign the user a group
