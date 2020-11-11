@@ -1,39 +1,39 @@
 # Create top level policies
-sudo mkdir /home/common/policies
+sudo mkdir /home/shared/policies
 # Make file read only
-chmod a=rx /home/common/policies
+chmod a=rx /home/shared/policies
 
 sudo groupadd temp
 sudo groupadd staff
 sudo groupadd developers
 sudo groupadd admin
 
-sudo mkdir -p /home/common/groups/temp
-sudo mkdir    /home/common/groups/staff
-sudo mkdir    /home/common/groups/developers
-sudo mkdir    /home/common/groups/admin
+sudo mkdir -p /home/shared/groups/temp
+sudo mkdir    /home/shared/groups/staff
+sudo mkdir    /home/shared/groups/developers
+sudo mkdir    /home/shared/groups/admin
 
-sudo chgrp -R temp /home/common/groups/temp
-sudo chgrp -R staff /home/common/groups/staff
-sudo chgrp -R developers /home/common/groups/developers
-sudo chgrp -R admin /home/common/groups/admin
+sudo chgrp -R temp /home/shared/groups/temp
+sudo chgrp -R staff /home/shared/groups/staff
+sudo chgrp -R developers /home/shared/groups/developers
+sudo chgrp -R admin /home/shared/groups/admin
 
-sudo chmod -R 2775 /home/common/groups/temp
-sudo chmod -R 2775 /home/common/groups/staff
-sudo chmod -R 2775 /home/common/groups/developers
-sudo chmod -R 2775 /home/common/groups/admin
+sudo chmod -R 2775 /home/shared/groups/temp
+sudo chmod -R 2775 /home/shared/groups/staff
+sudo chmod -R 2775 /home/shared/groups/developers
+sudo chmod -R 2775 /home/shared/groups/admin
 
 # Make policy folder for each group
-sudo mkdir -p /home/common/groups/temp/policies
-sudo mkdir    /home/common/groups/staff/policies
-sudo mkdir    /home/common/groups/developers/policies
-sudo mkdir    /home/common/groups/admin/policies
+sudo mkdir -p /home/shared/groups/temp/policies
+sudo mkdir    /home/shared/groups/staff/policies
+sudo mkdir    /home/shared/groups/developers/policies
+sudo mkdir    /home/shared/groups/admin/policies
 
 # Make each policy folder read only
-sudo chmod a=rx /home/common/groups/temp/policies
-sudo chmod a=rx /home/common/groups/staff/policies
-sudo chmod a=rx /home/common/groups/developers/policies
-sudo chmod a=rx /home/common/groups/admin/policies
+sudo chmod a=rx /home/shared/groups/temp/policies
+sudo chmod a=rx /home/shared/groups/staff/policies
+sudo chmod a=rx /home/shared/groups/developers/policies
+sudo chmod a=rx /home/shared/groups/admin/policies
 
 # Get the OS name to determine what program to install
 os=$(hostnamectl | awk -F ' ' '/Operating System:/ {print $3}')

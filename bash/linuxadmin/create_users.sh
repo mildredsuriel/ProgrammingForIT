@@ -22,7 +22,7 @@ while IFS= read -r line; do
         sudo passwd -e $username
 
         echo "Creating a user file in their group : sudo mkdir groups/$group/$username"
-        sudo mkdir /home/ubuntu/groups/$group/$username
+        sudo mkdir /home/shared/groups/$group/$username
 
         # Grant users of admin group sudo permissions
         if [ $group == "admin" ]
