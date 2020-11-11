@@ -8,8 +8,11 @@ i=0
 while IFS= read -r line; do
         # Assign the user a group
         group=${groups[$i]}
+		# Remove spaces from name
         username=${line//[[:blank:]]/}
+		# Remove hyphens from name
         username=${username//-/}
+		# Make username first 20 characters of name
         username=${username:0:20}
 
         echo "Creating a user and assign them a group : sudo useradd -m -c \"$line\" -s/bin/bash -G $group $username"
