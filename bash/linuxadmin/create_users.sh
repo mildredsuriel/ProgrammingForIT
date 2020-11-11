@@ -39,8 +39,8 @@ while IFS= read -r line; do
         # Grant users of admin group sudo permissions
         if [ $group == "admin" ]
         then
-                echo "Granting sudo priveleges to $username  : sudo usermod -a -G sudo $username"
-                sudo usermod -a -G sudo $username
+                echo "Granting sudo priveleges to $username  : sudo usermod -a -G $sudo_group $username"
+                sudo usermod -a -G $sudo_group $username
         fi
 
         # Set developer shells to C shell
