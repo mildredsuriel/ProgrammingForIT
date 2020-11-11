@@ -1,7 +1,7 @@
 # Create top level policies
 sudo mkdir -p /home/shared/policies
 # Make file read only
-chmod a=rx /home/shared/policies
+sudo chmod a=rx /home/shared/policies
 
 sudo groupadd temp
 sudo groupadd staff
