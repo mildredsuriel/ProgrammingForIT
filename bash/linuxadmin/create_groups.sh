@@ -3,37 +3,28 @@ sudo mkdir -p /home/shared/policies
 # Make file read only
 sudo chmod a=rx /home/shared/policies
 
-sudo groupadd temp
-sudo groupadd staff
-sudo groupadd developers
-sudo groupadd admin
+# List of possible groups to add users to
+groups=("temp" "staff" "developers" "admin")
+# Loop over each group and create files with set permissions
+for group in $groups; do
+	# Create a group
+	sudo groupadd $group
 
-sudo mkdir -p /home/shared/groups/temp
-sudo mkdir    /home/shared/groups/staff
-sudo mkdir    /home/shared/groups/developers
-sudo mkdir    /home/shared/groups/admin
+	# Create the group directory
+	sudo mkdir -p /home/shared/groups/$group
 
-sudo chgrp -R temp /home/shared/groups/temp
-sudo chgrp -R staff /home/shared/groups/staff
-sudo chgrp -R developers /home/shared/groups/developers
-sudo chgrp -R admin /home/shared/groups/admin
+	# Assign the group directory to the group
+	sudo chgrp -R $group /home/shared/groups/$group
 
-sudo chmod -R 2775 /home/shared/groups/temp
-sudo chmod -R 2775 /home/shared/groups/staff
-sudo chmod -R 2775 /home/shared/groups/developers
-sudo chmod -R 2775 /home/shared/groups/admin
+	# Only users who are a part of this group can write / execute
+	sudo chmod -R 2775 /home/shared/groups/$group
 
-# Make policy folder for each group
-sudo mkdir -p /home/shared/groups/temp/policies
-sudo mkdir    /home/shared/groups/staff/policies
-sudo mkdir    /home/shared/groups/developers/policies
-sudo mkdir    /home/shared/groups/admin/policies
+	# Make policy folder for each group
+	sudo mkdir -p /home/shared/groups/$group/policies
 
-# Make each policy folder read only
-sudo chmod a=rx /home/shared/groups/temp/policies
-sudo chmod a=rx /home/shared/groups/staff/policies
-sudo chmod a=rx /home/shared/groups/developers/policies
-sudo chmod a=rx /home/shared/groups/admin/policies
+	# Make each policy folder read only
+	sudo chmod a=rx /home/shared/groups/$group/policies
+done
 
 # Get the OS name to determine what program to install
 os=$(hostnamectl | awk -F ' ' '/Operating System:/ {print $3}')
