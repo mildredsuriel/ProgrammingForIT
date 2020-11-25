@@ -16,7 +16,11 @@ then
 	# Clean up the python file once done
 	rm -rf speedtest-cli
 else
-	sudo apt install speedtest-cli -y
+	if [ -z "$(which speedtest-cli)" ]
+	then
+		echo "speedtest-cli not installed, installing..."
+		#sudo apt install speedtest-cli -y
+	fi
 	speedtest-cli | tee network_logs/speedtest.log
 fi
 
