@@ -19,7 +19,7 @@ else
 	if [ -z "$(which speedtest-cli)" ]
 	then
 		echo "speedtest-cli not installed, installing..."
-		#sudo apt install speedtest-cli -y
+		sudo apt install speedtest-cli -y
 	fi
 	speedtest-cli | tee network_logs/speedtest.log
 fi
